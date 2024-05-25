@@ -1,0 +1,22 @@
+version: '3.7'
+
+services:
+  cepsystem:
+    build: ./cepservice
+    ports:
+      - "8080:8080"
+    environment:
+      - URL_TEMP=tempsystem
+      - URL_ZIPKIN=zipkin
+
+  tempsystem:
+    build: ./tempservice
+    ports:
+      - "9090:9090"
+    environment:
+      - URL_ZIPKIN=zipkin
+
+  zipkin:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
